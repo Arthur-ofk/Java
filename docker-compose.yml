@@ -9,6 +9,8 @@ services:
     depends_on:
       - payment-mongodb
       - product-service
+    networks:
+      - app-network
 
   payment-mongodb:
     image: mongo:latest
@@ -16,7 +18,9 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - payment-mongo-data:/data/db
+      - payment-mongo-data:/data/d
+    networks:
+      - app-network
 
   product-service:
     build: ./productservice
@@ -25,6 +29,17 @@ services:
       - "8081:8081"
     depends_on:
       - product-mongodb
+    networks:
+      - app-network
+
+  gateway-service:
+    build:
+      context: ./gatewayservice
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
 
   product-mongodb:
     image: mongo:latest
@@ -33,7 +48,13 @@ services:
       - "27018:27017" # Мапимо порт 27018 на 27017 всередині контейнера
     volumes:
       - product-mongo-data:/data/db
+    networks:
+      - app-network
 
 volumes:
   payment-mongo-data:
   product-mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
