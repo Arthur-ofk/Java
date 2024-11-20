@@ -1,5 +1,6 @@
 package com.jj.paymentservice;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +13,28 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    // @Autowired
+    // private ProductClient productClient;
+
+
     // Створення нового платежу
-    public Payment createPayment(Payment payment) {
-        return paymentRepository.save(payment);
-    }
+    // public Payment createPayment(Payment payment) {
+    //     // Отримуємо інформацію про продукт
+    //     Product product = productClient.getProductById(payment.getProductId());
+
+    //     if (product == null) {
+    //         throw new ResourceNotFoundException("Product not found with id " + payment.getProductId());
+    //     }
+
+    //     // Встановлюємо суму платежу на основі ціни продукту
+    //     payment.setAmount(product.getPrice());
+
+    //     // Встановлюємо поточний час
+    //     payment.setTimestamp(LocalDateTime.now());
+
+    //     // Логіка обробки платежу
+    //     return paymentRepository.save(payment);
+    // }
 
     // Отримання всіх платежів
     public List<Payment> getAllPayments() {

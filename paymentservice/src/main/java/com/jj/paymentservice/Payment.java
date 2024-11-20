@@ -14,6 +14,7 @@ public class Payment {
 
     @Id
     private String id; 
+    private String productId;
     private double amount;
     private String currency;
     private String method;
@@ -35,7 +36,10 @@ public class Payment {
     public String getId() {
         return id;
     }
-
+ public String getProductId()
+ {
+    return productId;
+ }
     
     public double getAmount() {
         return amount;
@@ -68,4 +72,6 @@ public class Payment {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
+   
 }

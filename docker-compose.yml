@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  payment-service:
+    build: ./paymentservice
+    container_name: payment-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - payment-mongodb
+      - product-service
+
+  payment-mongodb:
+    image: mongo:latest
+    container_name: payment-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - payment-mongo-data:/data/db
+
+  product-service:
+    build: ./productservice
+    container_name: product-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - product-mongodb
+
+  product-mongodb:
+    image: mongo:latest
+    container_name: product-mongodb
+    ports:
+      - "27018:27017" # Мапимо порт 27018 на 27017 всередині контейнера
+    volumes:
+      - product-mongo-data:/data/db
+
+volumes:
+  payment-mongo-data:
+  product-mongo-data:
